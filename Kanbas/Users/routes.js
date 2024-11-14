@@ -71,8 +71,30 @@ export default function UserRoutes(app) {
         res.json(newCourse);
     };
     
-    app.post("/api/users/current/courses", createCourse);
-    app.get("/api/users/:userId/courses", findCoursesForEnrolledUser);
+    //For Enrollment
+    const enrollInCourse = (req, res) => {
+        const currentUser = req.session["currentUser"];
+        // const { currentUserID } = req.params.userId;
+        const { courseId } = req.params;
+        // console.log(currentUser);
+        // console.log("Course ID: ", courseId);
+        enrollmentsDao.enrollUserInCourse(currentUser._id, courseId);
+        const courses = courseDao.findCoursesForEnrolledUser(currentUser._id);
+        res.json(courses);
+        // res.sendStatus(204);
+    };
+    const unEnrollFromCourse = (req, res) => {
+        const currentUser = req.session["currentUser"];
+        const { courseId } = req.params;
+        // console.log(currentUser);
+        // console.log("Course ID: ", courseId);
+        enrollmentsDao.unEnrollUserFromCourse(currentUser._id, courseId);
+        const courses = courseDao.findCoursesForEnrolledUser(currentUser._id);
+        res.json(courses);
+        // res.sendStatus(204);
+    };
+
+    
     app.post("/api/users", createUser);
     app.get("/api/users", findAllUsers);
     app.get("/api/users/:userId", findUserById);
@@ -82,4 +104,8 @@ export default function UserRoutes(app) {
     app.post("/api/users/signin", signin);
     app.post("/api/users/signout", signout);
     app.post("/api/users/profile", profile);
+    app.get("/api/users/:userId/courses", findCoursesForEnrolledUser);
+    app.post("/api/users/current/courses", createCourse);
+    app.post("/api/users/current/course/:courseId", enrollInCourse);
+    app.delete("/api/users/current/course/:courseId", unEnrollFromCourse);
 }
