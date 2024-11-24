@@ -1,26 +1,30 @@
 import Database from "../Database/index.js";
+import model from "./model.js";
+import CourseModel from "../Courses/model.js"
+import mongoose from "mongoose";
 
-export function findModulesForCourse(courseId) {
-    const { modules } = Database;
-    return modules.filter((module) => module.course === courseId);
+// var mongoose = require('mongoose');
+
+export async function findModulesForCourse(courseId) {
+    // console.log(typeof(objectId));
+    const course = await CourseModel.findOne({ _id: courseId }); 
+    if (!course) {
+        throw new Error(`Course with name ${courseId} not found`);
+    }
+    return model.find({ course: course.number });
 }
 
 export function createModule(module) {
-    const newModule = { ...module, _id: Date.now().toString() };
-    Database.modules = [...Database.modules, newModule];
-    return newModule;
+    delete module._id
+    return model.create(module);
 }
 
 export function deleteModule(moduleId) {
-    const { modules } = Database;
-    Database.modules = modules.filter((module) => module._id !== moduleId);
+    return model.deleteOne({ _id: moduleId });
 }
 
 export function updateModule(moduleId, moduleUpdates) {
-    const { modules } = Database;
-    const module = modules.find((module) => module._id === moduleId);
-    Object.assign(module, moduleUpdates);
-    return module;
+    return model.updateOne({ _id: moduleId }, moduleUpdates);
 }
   
    
