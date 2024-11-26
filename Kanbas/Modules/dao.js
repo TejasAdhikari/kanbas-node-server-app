@@ -7,11 +7,12 @@ import mongoose from "mongoose";
 
 export async function findModulesForCourse(courseId) {
     // console.log(typeof(objectId));
-    const course = await CourseModel.findOne({ _id: courseId }); 
-    if (!course) {
-        throw new Error(`Course with name ${courseId} not found`);
-    }
-    return model.find({ course: course.number });
+    // const course = await CourseModel.findOne({ _id: courseId }); 
+    // if (!course) {
+    //     throw new Error(`Course with name ${courseId} not found`);
+    // }
+    // return model.find({ course: course.number });
+    return model.find({ course: courseId });
 }
 
 export function createModule(module) {

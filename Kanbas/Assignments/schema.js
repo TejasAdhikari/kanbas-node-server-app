@@ -1,15 +1,15 @@
 import mongoose from "mongoose";
 
-
 const schema = new mongoose.Schema(
   {
-    name: String,
+    title: String,
     description: String,
+    points: Number,
+    available_date_num: String,
+    due_date_num: String,
     course: { type: mongoose.Schema.Types.ObjectId, ref: "CourseModel" },
   },
-  { collection: "modules" }
+  { collection: "assignments" }
 );
 
 export default schema;
-
-// mongoose.Schema.Types.ObjectId
