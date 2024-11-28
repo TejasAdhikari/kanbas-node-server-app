@@ -10,11 +10,22 @@ export async function findQuizzesForCourse(courseId) {
 
 export function createQuiz(quiz) {
     delete quiz._id
+    quiz = {
+        ...quiz, 
+        quizType: "Quiz",
+        published: false,
+        assignmentGroup: "Quizzes",
+        shuffleAnswers: true,
+        timeLimit: 20,
+        multipleAttempts: false,
+        numberAttempts: 1,
+        showCorrectAnswers: "Immideately",
+        acessCode: "",
+        oneQuestionAtATime: true,
+        webcamRequired: false,
+        lockQuestionsAfterAnswering: false,
+    };
     return model.create(quiz);
-
-    // const newAssignment = { ...assignment, _id: Date.now().toString() };
-    // Database.assignments = [...Database.assignments, newAssignment];
-    // return newAssignment;
 }
 
 export function deleteQuiz(quizId) {
