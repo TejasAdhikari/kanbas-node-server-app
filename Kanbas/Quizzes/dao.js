@@ -12,6 +12,7 @@ export function createQuiz(quiz) {
     delete quiz._id
     quiz = {
         ...quiz, 
+        points: 0,
         quizType: "Quiz",
         published: false,
         assignmentGroup: "Quizzes",
