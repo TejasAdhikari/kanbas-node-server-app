@@ -28,5 +28,4 @@ export default function QuizRoutes(app) {
         const newQuestion = await questionsDao.createQuestion(question);
         res.send(newQuestion);
     });
-     
 }
