@@ -11,6 +11,7 @@ import AssignmentRoutes from './Kanbas/Assignments/routes.js';
 import PoepleRoutes from './Kanbas/People/routes.js';
 import QuizRoutes from './Kanbas/Quizzes/routes.js';
 import QuestionRoutes from './Kanbas/Questions/routes.js';
+import SubmissionRoutes from './Kanbas/Submissions/routes.js';
 import mongoose from "mongoose";
 
 
@@ -51,6 +52,7 @@ AssignmentRoutes(app);
 PoepleRoutes(app);
 QuizRoutes(app);
 QuestionRoutes(app);
+SubmissionRoutes(app);
 
 app.listen(process.env.PORT || 4000)
 
